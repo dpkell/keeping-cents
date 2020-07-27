@@ -1,0 +1,13 @@
+@import '../../sass/main.scss';
+
+.ytd-display {
+    height: 20vh;
+    width: 25vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: rgba($dashboard-color, .85);
+    border-radius: 3px;
+
+    box-shadow: 0 1.5rem 4rem rgba($color-black, .15);
+}

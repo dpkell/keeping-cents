@@ -1,0 +1,11 @@
+@import "../../sass/main.scss";
+
+.header-container {
+    height: 10vh;
+    background: linear-gradient(to right, $header-color-primary, $header-color-secondary);
+}
+
+.logo {
+    height: 10rem;
+    width: auto;
+}

@@ -1,0 +1,11 @@
+@import '../../sass/main.scss';
+
+.income-table {
+    display: flex;
+    flex-direction: column;
+    height: 59vh;
+    width: 35vw;
+
+    background: $entry-table-color;
+    border-radius: 3px;
+}

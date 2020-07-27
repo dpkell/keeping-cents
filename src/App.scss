@@ -1,0 +1,19 @@
+@import "./sass/main.scss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  // Defining the rem size. 1 rem = 10px. (10/16) = 62.5%
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Recursive", sans-serif;
+  font-weight: 300;
+  padding: inherit;
+  box-sizing: border-box;
+}
