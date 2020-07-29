@@ -1,0 +1,26 @@
+@import '../../sass/main.scss';
+
+.sign-up {
+    width: 45rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: $color-white;
+    margin-top: 3rem;
+    border-radius: 5px;
+    box-shadow: 0 1.5rem 4rem rgba($color-black, .15);
+
+    .title{
+        margin: 1rem auto;
+    }
+
+    .sub-title {
+        margin: 0 auto;
+    }
+
+    .form-button {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+    }
+}

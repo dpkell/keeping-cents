@@ -1,11 +1,31 @@
 @import "../../sass/main.scss";
 
 .header-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
     height: 10vh;
     background: linear-gradient(to right, $header-color-primary, $header-color-secondary);
+
+    font-size: 1.8rem;
+    font-weight: 400;
 }
 
 .logo {
     height: 10rem;
     width: auto;
+}
+
+.options-container {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 2rem;
+}
+
+a {
+    text-decoration: none;
+    color: $color-black;
 }
