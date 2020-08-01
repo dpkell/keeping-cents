@@ -1,5 +1,12 @@
-import React from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useState
+} from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+
+import {createUserProfileDocument, getCurrentUser} from './firebase/firebase.utils';
 
 import Header from './components/header/header.component';
 import HomePage from './pages/homepage/homepage.component';

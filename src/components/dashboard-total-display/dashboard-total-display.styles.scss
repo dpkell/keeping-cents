@@ -1,0 +1,17 @@
+@import '../../sass/main.scss';
+
+.display-total {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 15rem;
+    width: 20rem;
+    text-align: center;
+
+    .total{
+        font-size: 7rem;
+        line-height: 1.8rem;
+        font-weight: 300;
+        color: #0ec5d6;
+    }
+}

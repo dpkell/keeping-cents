@@ -1,6 +1,56 @@
 @import '../../sass/main.scss';
 
 .budget-controller-container {
+    
+    display: flex;
+    justify-content: space-around;
     height: 5vh;
-    width: 60vw;
+    width: 55rem;
+    background-color: rgba($color-white, .9); 
+    margin-bottom: 1rem;
+    border-radius: 2rem;
+
+    .controller-form {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
+    select {
+        margin-right: 1.8rem;
+        height: 3rem;
+        width: 4rem;
+        
+    }
+    .amount-entry {
+        height: 2.3rem;
+        border-radius: 1rem;
+        border: none;
+        margin: 0 2rem;
+
+        &[type=number]::-webkit-inner-spin-button, 
+        &[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0;
+        }     
+    }
+
+    .description-entry {
+        height: 2.3rem;
+        border-radius: 1rem;
+        border: none;
+        margin: 0 2rem;
+    }
+
+    .submit-button {
+        margin-top: .5rem;
+        padding-left: 1rem;
+        .submit-icon {
+            cursor: pointer;
+            fill: #0ec5d6;
+        }
+        
+    }
 }
+
+

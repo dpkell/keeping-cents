@@ -1,0 +1,28 @@
+@import '../../sass/main.scss';
+
+.income-display-container{
+    display: flex;
+    flex-direction: column;
+    height: 15rem;
+    width: 20rem;
+    text-align: center;
+
+    .display-income {
+        margin-top: 2.5rem;
+        .income-total {
+            margin-top: 2rem;
+            font-size: 5rem;
+            line-height: 1.6rem;
+            font-weight: 300;
+            color: $income-table-color;
+        }
+    }
+    
+    .income-subheading {
+        font-size: 1.9rem;
+        color: $color-white;
+        padding-left: 1.2rem;
+    }
+
+}
+

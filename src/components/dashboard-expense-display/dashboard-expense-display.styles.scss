@@ -1,0 +1,27 @@
+@import '../../sass/main.scss';
+
+.expense-display-container {
+    display: flex;
+    flex-direction: column;
+    height: 15rem;
+    width: 20rem;
+    text-align: center;
+
+    .display-expense {
+        margin-top: 2.5rem;
+        .expense-total {
+            margin-top: 2rem;
+            font-size: 5rem;
+            line-height: 1.6rem;
+            font-weight: 300;
+            color: $expense-table-color;
+        }
+    }
+
+    .expense-subheading {
+        font-size: 1.9rem;
+        color: $color-white;
+        padding-left: 1.2rem;
+    }
+
+}

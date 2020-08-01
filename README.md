@@ -1,68 +1,50 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# KeepingCents
 
-In the project directory, you can run:
+## Purpose
 
-### `npm start`
+KeepingCents is a simple single page application that serves as a monthly budget tracker. The application will allow users to
+sign-up and sign-in, including using their google accounts. KeepingCents will also store previous month entries along with the
+current month, allowing users to retrieve older budget records and edit them if necessary. 
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This project is to practice state management through the use of React's hooks instead of a state management tool like Redux,
+since the overall application's state that needs to be maintained is relatively minimal/simple. Which provides a perfect
+opportunity to practice implementing hooks as a form of state management.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Progress Reports
 
-### `npm test`
+### 08/01/2020
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Currently building out static version of application**
 
-### `npm run build`
+##### Changes/Implementations
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Homepage created and styled, most of the overlaying container components also created and mostly styled.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Sign-in and Sign-up components and signin page created and styled. Functionality yet to be implemented.
 
-### `npm run eject`
+3. Header component mostly done, missing Year-to-Date display, will be implemented at later date.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+4. Dashboard and subcomponents created and styled. Some changes will be made in the future, particularly the
+budget controller.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+##### Upcoming To-Do List
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1. Finish creating and styling the rest of the application's homepage.
 
-## Learn More
+2. Implement better notes for components and their styling sheets so that others can easily tell what is
+going on.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+3. Combine the dashboard-expense and dashboard-income display components as they violate the DRY principle and are also
+styled exactly the same with only a few minor differences. Thus, a perfect candidate to rework into a reusable component.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+4. Much like the dashboard displays, the income and expenses tables can most likely be combined as well. Particularly since
+a simple ternary operator can be implemented to check the type of the incoming props to render in the correct place.
 
-### Code Splitting
+5. Finish planning out where State needs to live within the application. Most components are simple functional ones, so
+it should not be hard to figure out the best place to place State.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+6. Clean and organize the Sass variables file.
