@@ -14,6 +14,35 @@ opportunity to practice implementing hooks as a form of state management.
 
 ## Progress Reports
 
+### 08/05/2020
+
+##### Changes/Implementations
+
+1. Finished implementing and basic styling the homepage components, including: table-title, table-entry, previous-month-entry components.
+
+2. Re-designed the budget-controller with the creation and implementation of toggle switches to indicate the data type entry.
+Looks a lot better while maintaining easy and intuitive functionality.
+
+3. Made minor changes to the submit icon of budget controller to change background and fill color when hovered.
+
+
+##### Upcoming To-Do List
+
+1. Create an initial State object to finish mapping props and ensuring all components that receive props are working as intended.
+
+2. Implement YTD-Budget display for Header
+
+2. Create better notes for components and their styling sheets so that others can easily tell what is
+going on.
+
+3. Combine the dashboard-expense and dashboard-income display components as they violate the DRY principle and are also
+styled exactly the same with only a few minor differences. Thus, a perfect candidate to rework into a reusable component.
+
+4. Much like the dashboard displays, the income and expenses tables can most likely be combined as well. Particularly since
+a simple ternary operator can be implemented to check the type of the incoming props to render in the correct place.
+
+5. Clean and organize the Sass variables file.
+
 ### 08/01/2020
 
 **Currently building out static version of application**

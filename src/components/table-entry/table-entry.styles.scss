@@ -16,6 +16,7 @@
         overflow: hidden;
 
         .description-entry {
+            padding-top: 3.5px;
             height: 100%;
             font-size: 1.4rem;
             text-align: center;
@@ -32,6 +33,20 @@
         .amount-entry {
             font-size: 1.8rem;
             text-align: center;
+        }
+    }
+
+    .remove-button {
+        width: 10%;
+        padding-top: 3.5px;
+        padding-left: 1.5rem;
+
+        .remove-icon {
+            cursor: pointer;
+            
+            &:hover {
+                fill: red;
+            }
         }
     }
 }
