@@ -1,0 +1,30 @@
+@import '../../sass/main.scss';
+
+.previous-entry-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 1px 1px;
+    
+    .previous-entry-btn {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        font-size: 1.4rem;
+        font-family: 'Saira Condensed';
+        font-weight: 600;
+        text-align: center;
+        .entry-date {
+            padding: 0 .8rem;
+            line-height: 1.4;
+        }
+        .entry-total {
+            padding-top: .8rem;
+            font-size: 2rem;
+            line-height: 1.8;
+        }
+    }
+}

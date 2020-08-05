@@ -7,8 +7,8 @@ import './entry-table-overview.styles.scss';
 
 const EntryTableOverview = () => (
     <div className='table-overview'>
-        <ExpensesEntryTable />
         <IncomeEntryTable />
+        <ExpensesEntryTable />
     </div>
 );
 

@@ -22,7 +22,6 @@ opportunity to practice implementing hooks as a form of state management.
 
 1. Homepage created and styled, most of the overlaying container components also created and mostly styled.
 
-
 2. Sign-in and Sign-up components and signin page created and styled. Functionality yet to be implemented.
 
 3. Header component mostly done, missing Year-to-Date display, will be implemented at later date.

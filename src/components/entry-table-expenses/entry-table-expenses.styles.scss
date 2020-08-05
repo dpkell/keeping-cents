@@ -6,6 +6,9 @@
     height: 75vh;
     width: 35vw;
     border-radius: 2rem;
+    overflow: scroll;
+    overflow-y: auto;
+    overflow-x: auto;
 
     background: $entry-table-color;
     
