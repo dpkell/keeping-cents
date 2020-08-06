@@ -2,12 +2,13 @@ import React from 'react';
 
 import './ytd-budget-display.styles.scss';
 
-const YtdBudgetDisplay = () => (
+const YtdBudgetDisplay = ({ total }) => (
     <div className='ytd-display'>
-        <h1 className='yearly-total'>
-            Total Placeholder
-        </h1>
         <span className='ytd-text'>Total for 2020</span>
+        <h3 className='yearly-total'>
+            Total Placeholder
+        </h3>
+        
     </div>
 );
 

@@ -1,15 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import YtdBudgetDisplay from '../ytd-budget-display/ytd-budget-display.component';
 import { ReactComponent as Logo } from '../../assets/KeepingCents.svg';
 
 import './header.styles.scss';
 
 const Header = ({currentUser}) => (
     <div className='header-container'>
-        <Link to='/'>
-            <Logo className='logo' />
-        </Link>
+        <div className='logo-title-container'>
+            <Link to='/'>
+                <Logo className='logo' />
+            </Link>
+
+            <h1 className='header-title'>KeepingCents</h1>
+        </div>
+
+        <div className='ytd-container'>
+            <YtdBudgetDisplay />
+        </div>
 
         <div className='options-container'>
             {
