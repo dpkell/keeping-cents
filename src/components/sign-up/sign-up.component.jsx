@@ -3,6 +3,8 @@ import React, {useState} from 'react';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 
+import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
+
 import './sign-up.styles.scss';
 
 const SignUp = ({signUpStart}) => {
@@ -23,7 +25,23 @@ const SignUp = ({signUpStart}) => {
             return;
         }
 
-        // SignUpStart here
+        try {
+            await auth.createUserWithEmailAndPassword(
+                userCredentials.email,
+                userCredentials.password
+            )
+            
+            await createUserProfileDocument(userCredentials, { displayName });
+
+            setUserCredentials({
+                displayName: '',
+                email: '',
+                password: '',
+                confirmPassword: ''
+            });
+        } catch (error) {
+            console.log(error);
+        } 
     };
 
     const handleChange = event => {

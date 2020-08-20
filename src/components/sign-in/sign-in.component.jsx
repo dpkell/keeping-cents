@@ -6,7 +6,7 @@ import { signInWithGoogle } from '../../firebase/firebase.utils';
 
 import './sign-in.styles.scss';
 
-const SignIn = ({emailSignInStart, googleSignInStart}) => {
+const SignIn = ({}) => {
     const [userCredentials, setUserCredentials] = useState({email: '', password: ''});
 
     const { email, password } = userCredentials;

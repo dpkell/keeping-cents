@@ -1,41 +1,34 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useState
-} from 'react';
+import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-import {createUserProfileDocument, getCurrentUser} from './firebase/firebase.utils';
+import { AuthProvider } from './AuthContext';
+import { DateProvider } from './DateContext';
+import LoginRedirectRoute from './components/user-sign-in-redirect/user-sign-in-redirect.component';
 
 import Header from './components/header/header.component';
 import HomePage from './pages/homepage/homepage.component';
-import SignInandSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
+
+
 
 
 import './App.scss';
 
-function App({checkUserSession, currentUser }) {
 
+function App () {
 
   return (
-    <div>
-      <Header />
-      <Switch>
-        <Route exact path='/' component={HomePage} />
-        <Route 
-          exact
-          path='/signin'
-          render={() =>
-            currentUser ? (
-              <Redirect to='/' />
-            ) : (
-              <SignInandSignUpPage />
-            )
-          }
-        />
-      </Switch>
-    </div>
+    <AuthProvider>
+      <DateProvider>
+        <Header />
+        <Switch>
+          <Route exact path='/' component={HomePage} />
+          <LoginRedirectRoute
+            exact
+            path='/signin'
+          />
+        </Switch>
+      </DateProvider>
+    </AuthProvider>
   );
 }
 
