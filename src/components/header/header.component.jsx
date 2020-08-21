@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+
+import { AuthContext } from '../../AuthContext';
+import {DateContext} from '../../DateContext';
 
 import {auth} from '../../firebase/firebase.utils';
 
@@ -8,7 +11,10 @@ import { ReactComponent as Logo } from '../../assets/KeepingCents.svg';
 
 import './header.styles.scss';
 
-const Header = ({currentUser}) => (
+const Header = () =>{ 
+const { currentUser } = useContext(AuthContext);
+const {year} = useContext(DateContext);
+return (
     <div className='header-container'>
         <div className='logo-title-container'>
         <Link to='/'>
@@ -20,7 +26,7 @@ const Header = ({currentUser}) => (
 
 
         <div className='ytd-container'>
-            <YtdBudgetDisplay />
+            <YtdBudgetDisplay year={year} />
         </div>
 
         <div className='options-container'>
@@ -34,5 +40,7 @@ const Header = ({currentUser}) => (
         </div>
     </div>
 );
+
+};
 
 export default Header;

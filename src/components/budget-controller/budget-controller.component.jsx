@@ -6,7 +6,7 @@ import ToggleSwitch from '../toggle-switch/toggle-switch.component';
 
 import './budget-controller.styles.scss';
 
-const BudgetController = () => {
+const BudgetController = ({ month, year, ...otherProps }) => {
     const [dataEntry, setDataEntry] = useState({amount: '', description: '' });
 
     const { amount, description } = dataEntry;

@@ -14,6 +14,11 @@
 .logo-title-container {
     width: 30%;
     display: flex;
+
+    .logo {
+        height: 10rem;
+        width: auto;
+    }
     
     .header-title {
         color: $color-white;
@@ -28,10 +33,7 @@
     margin-left: 5rem;
 }
 
-.logo {
-    height: 10rem;
-    width: auto;
-}
+
 
 .options-container {
     width: 30%;

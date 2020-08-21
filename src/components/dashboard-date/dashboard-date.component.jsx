@@ -2,9 +2,9 @@ import React from 'react';
 
 import './dashboard-date.styles.scss';
 
-const DashboardDate = () => (
+const DashboardDate = ({month, year}) => (
     <div className='date-container'>
-        <h1 className='date'>August 2020</h1>
+        <h1 className='date'>{month} {year}</h1>
     </div>
 );
 

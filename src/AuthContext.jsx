@@ -43,6 +43,7 @@ export const AuthProvider = ({ children }) => {
         <AuthContext.Provider
             value={{ currentUser }}
         >
+            {console.log(currentUser)}
             {children}
             
         </AuthContext.Provider>

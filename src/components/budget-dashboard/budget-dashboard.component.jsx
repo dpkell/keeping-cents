@@ -1,4 +1,6 @@
-import React from 'react';
+import React, {useContext} from 'react';
+
+import { DateContext } from '../../DateContext';
 
 import BudgetController from '../budget-controller/budget-controller.component';
 import DisplayTotal from '../dashboard-total-display/dashboard-total-display.component';
@@ -8,21 +10,26 @@ import DashboardDate from '../dashboard-date/dashboard-date.component';
 
 import './budget-dashboard.styles.scss';
 
-const BudgetDashboard = () => (
-    <div className='dashboard-container'>
-        <div className='date-container'>
-            <DashboardDate />
-        </div>
-        <div className='displays-container'>
-            <DisplayIncome />
-            <DisplayTotal />
-            <DisplayExpense />
-        </div>
+const BudgetDashboard = () => {
+    const { month, year} = useContext(DateContext);
 
-        <div className='controller-container'>
-            <BudgetController />
+
+    return (
+        <div className='dashboard-container'>
+            <div className='date-container'>
+                <DashboardDate month={month} year={year} />
+            </div>
+            <div className='displays-container'>
+                <DisplayIncome />
+                <DisplayTotal />
+                <DisplayExpense />
+            </div>
+
+            <div className='controller-container'>
+                <BudgetController month={month} year={year}/>
+            </div>
         </div>
-    </div>
-);
+    );
+};
 
 export default BudgetDashboard;
