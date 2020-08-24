@@ -68,19 +68,17 @@ const createYearDocument = async (userAuth, year, ...additionalData) => {
   const yearRef = firestore.doc(`users/${userAuth.id}/year/${yearDocId}`);
   const yearSnapShot = await yearRef.get();
 
-  if(!yearSnapShot.exists) {
-    const createdAt = new Date();
+  const createdAt = new Date();
 
-    try {
-      await yearRef.set({
-        year,
-        createdAt,
-        ...additionalData
-      });
-    } catch (error) {
+  try {
+    await yearRef.set({
+      year,
+      createdAt,
+      ...additionalData
+    });
+  } catch (error) {
       console.log('Error creating Year document: ', error.message)
-    } 
-  }
+  } 
   return yearRef;
 };
 
@@ -88,37 +86,79 @@ const createMonthDocument = async (userAuth, year, month) => {
   if(!userAuth) return;
 
   let yearDocRef = firestore.doc(`users/${userAuth.id}/year/${year}`);
-  const yearDocSnapShot = await yearDocRef.get();
+  const yearDocSnap = await yearDocRef.get();
 
-  if (!yearDocSnapShot.exists) {
+  if (!yearDocSnap.exists) {
     yearDocRef = await createYearDocument(userAuth, year);
   };
-
-  const monthDocInit = `${yearDocRef}/months/${firestore.doc()}`;
+  const newMonthDoc = firestore.doc();
+  const monthDocInit = `${yearDocRef}/months/${newMonthDoc}`;
   const monthDocSnapShot = await monthDocInit.get();
   const monthDocId = monthDocSnapShot.id;
   const monthRef = firestore.doc(`${yearDocRef}/months/${monthDocId}`);
   const monthSnapShot = await monthRef.get();
 
-  if(!monthSnapShot.exists) {
-    const createdAt = new Date();
+  const createdAt = new Date();
 
-    try {
-      await monthRef.set({
-        year,
-        month,
-        createdAt
-      });
-    } catch (error) {
+  try {
+    await monthRef.set({
+      year,
+      month,
+      createdAt
+    });
+  } catch (error) {
       console.log('Error creating month document: ', error.message);
-    }
   }
   return monthRef;
 }
 
-export const createDataEntryDocument = async (userAuth, year, month, type, ...additionalData) => {
+export const createDataEntryDocument = async (userAuth, year, month, dataEntry) => {
   if(!userAuth) return;
+  const { type } = dataEntry 
+  let monthDocRef = firestore.doc(`users/${userAuth.id}/${year}/${month}`);
+  const monthDocSnap = await monthDocRef.get();
+  const newDataDoc = firestore.doc();
 
+  if (!monthDocSnap.exists) {
+    monthDocRef = await createMonthDocument(userAuth, year, month);
+  }
+
+  if ( type === 'income') {
+    const incomeDocInit = firestore.doc(`${monthDocRef}/incomes/${newDataDoc}`);
+    const incomeDocSnapShot = await incomeDocInit.get();
+    const incomeDocId = incomeDocSnapShot.id;
+    const incomeRef = firestore.doc(`${monthDocRef}/incomes/${incomeDocId}`);
+    const incomeSnapShot = await incomeRef.get();
+
+    try {
+      incomeSnapShot.set({
+        ...dataEntry
+      });
+
+    } catch (error) {
+      console.log('Error creating income document: ', error.message);
+    }
+
+    return incomeRef;
+  }
+
+  if ( type === 'expense') {
+    const expenseDocInit = firestore.doc(`${monthDocRef}/expenses/${newDataDoc}`);
+    const expenseDocSnapShot= await expenseDocInit.get();
+    const expenseDocId = expenseDocSnapShot.id;
+    const expenseRef = firestore.doc(`${monthDocRef}/expenses/${expenseDocId}`);
+    const expenseSnapShot = await expenseRef.get();
+
+    try {
+      expenseSnapShot.set({
+        ...dataEntry
+      });
+    } catch (error) {
+      console.log('Error creating expenses document: ', error.message);
+    }
+
+    return expenseRef;
+  }
 
 }
 
