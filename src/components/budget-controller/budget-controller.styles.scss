@@ -50,13 +50,14 @@
         border-radius: 2.2rem;
         background-color: $color-white;
         transition: background-color .25s;
+        border: none;
 
         &:hover {
             background-color: #0ec5d6;
         }
         .submit-icon {
-            right: 1px;
-            bottom: 1px;
+            right: .5px;
+            top: 0;
             position: absolute;
             cursor: pointer;
             fill: #0ec5d6;

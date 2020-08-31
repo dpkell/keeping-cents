@@ -12,43 +12,37 @@ import './budget-controller.styles.scss';
 
 const BudgetController = ({ month, year, ...otherProps }) => {
     const { currentUser } = useContext(AuthContext);
-    const _isMounted = useRef(true);
+    const _isMounted = useRef(true); 
 
     const [dataEntry, setDataEntry] = useState({amount: '', description: '' });
     const [typeEntry, setTypeEntry] = useState({ type: '' })
     const [incomeValue, setIncomeValue] = useState(false);
     const [expenseValue, setExpenseValue] = useState(false);
-    const [value, setValue] = useState(false)
-    const [expenseId, setExpenseId] = usePersistedState('expenseId', 0);
-    const [incomeId, setIncomeId] = usePersistedState('incomeId', 0);
-    const [dataSubmission, setDataSubmission] = useState({
-        type: '',
-        amount: '',
-        description: '',
-        dataId: 0
+    const [expenseId, setExpenseId] = usePersistedState('expId', {expId: 0});
+    const [incomeId, setIncomeId] = usePersistedState('incId', {incId: 0});
+    const [docObj, setDocObj] = useState({
+        objType: '',
+        objAmount: '',
+        objDescription: '',
+        objId: 0
     });
 
     useEffect(() => {
+        
+        console.log(docObj);
         return () => {
             _isMounted.current = false;
         }
-    })
+    }, [incomeValue, expenseValue, docObj]);
 
     const { amount, description } = dataEntry;
+    const { incId } = incomeId;
+    const { expId } = expenseId;
+    
+    
+    
 
-    const setEntryType = () => {
-        if (incomeValue) {
-            setTypeEntry({ type: 'income' });
-        }
-
-        if (expenseValue) {
-            setTypeEntry({ type: 'expense' });
-        }
-
-        return typeEntry;
-    }
-
-    const handleSubmit = async event => {
+    const handleSubmit = event => {
         event.preventDefault();
 
         if (incomeValue === true && expenseValue === true) {
@@ -61,60 +55,58 @@ const BudgetController = ({ month, year, ...otherProps }) => {
             return;
         }
 
-        setTypeEntry();
-
-        const { type } = typeEntry; 
-
-        if ( type === 'income') {
-            setIncomeId({incomeId: incomeId+1});
-            setDataSubmission({
-                type: type,
-                amount: amount,
-                description: description,
-                dataId: incomeId
-            });
+        if (incomeValue) {
+            console.log('if statement accessed')
+            incomeDataEntry();
         }
 
-        if ( type === 'expense') {
-            setExpenseId({expenseId: expenseId+1});
-            setDataSubmission({
-                type: type,
-                amount: amount,
-                description: description,
-                dataId: expenseId
-            });
+        if (expenseValue) {
+            expenseDataEntry();
         }
 
-        try {
-            await createDataEntryDocument(currentUser, year, month, dataSubmission);
-        } catch (error) {
-            console.log('Error submitting data into database: ', error.message);
-        } finally {
-            setDataSubmission({
-                type: '',
-                amount: '',
-                description: '',
-                dataId: 0
-            });
-        }
+        // setDocObj({
+        //     objType: '',
+        //     objAmount: '',
+        //     objDescription: '',
+        //     objId: 0
+        // });
     };
+
 
     const handleChange = event => {
         const { name, value } = event.target;
 
-        setDataEntry({ ...dataEntry, [name]: value });
-
-        console.log(dataEntry);
+        setDataEntry({ ...dataEntry, [name]: value }); 
     };
 
-    const handleTypeChange = event => {
-        const { name, value } = event.target;
+    const incomeDataEntry = () => {
         
-        setTypeEntry({type: value});
-
-        console.log(typeEntry);
+        console.log('function called')
+        setIncomeId({incId: incId+1});
+        console.log(incId);
+        console.log(`${amount} ${description}`);
+        setDocObj({
+            objType: 'income',
+            objAmount: amount,
+            objDescription: description,
+            objId: incId
+        });
     };
-    
+
+    const expenseDataEntry = () => {
+        console.log('function called')
+        setExpenseId({expId: expId+1});
+        console.log(expId);
+        console.log(`${amount} ${description}`);
+        setDocObj({
+            objType: 'expense',
+            objAmount: amount,
+            objDescription: description,
+            objId: expId
+        });
+        
+    };
+
     return (
         <div className='budget-controller-container'>
             <form className='controller-form' onSubmit={handleSubmit} noValidate>
@@ -131,7 +123,7 @@ const BudgetController = ({ month, year, ...otherProps }) => {
                         toggleId='expenseToggle'
                         isOn={expenseValue}
                         onColor="#fe2d47"
-                        handleToggle={()=> setExpenseValue(!expenseValue)}
+                        handleToggle={() => setExpenseValue(!expenseValue)}
                     />
                 </div>
                 <input className='amount-entry'
@@ -151,9 +143,9 @@ const BudgetController = ({ month, year, ...otherProps }) => {
                     placeholder = ' Description'
                     required
                 />
-                <a className='submit-button'>
+                <button className='submit-button'>
                     <SubmitIcon className='submit-icon' type='submit'/>
-                </a>
+                </button>
             </form>
         </div>
     );
