@@ -1,7 +1,7 @@
 @import '../../sass/main.scss';
 
 .dashboard-container {
-    height: 27vh;
+    height: 27.5vh;
     width: 90vw;
     display: flex;
     flex-direction: column;
@@ -19,6 +19,7 @@
 
 .displays-container {
     width: 90vw;
+    height: 13rem;
     display: flex;
     flex-direction: row;
     justify-content: space-around;  

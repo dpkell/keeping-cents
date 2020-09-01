@@ -18,8 +18,8 @@ const BudgetController = ({ month, year, ...otherProps }) => {
     const [typeEntry, setTypeEntry] = useState({ type: '' })
     const [incomeValue, setIncomeValue] = useState(false);
     const [expenseValue, setExpenseValue] = useState(false);
-    const [expenseId, setExpenseId] = usePersistedState('expId', {expId: 0});
-    const [incomeId, setIncomeId] = usePersistedState('incId', {incId: 0});
+    const [expenseId, setExpenseId] = usePersistedState('expId', {expId: 1});
+    const [incomeId, setIncomeId] = usePersistedState('incId', {incId: 1});
     const [docObj, setDocObj] = useState({
         objType: '',
         objAmount: '',
@@ -30,6 +30,7 @@ const BudgetController = ({ month, year, ...otherProps }) => {
     useEffect(() => {
         
         console.log(docObj);
+
         return () => {
             _isMounted.current = false;
         }
@@ -38,11 +39,8 @@ const BudgetController = ({ month, year, ...otherProps }) => {
     const { amount, description } = dataEntry;
     const { incId } = incomeId;
     const { expId } = expenseId;
-    
-    
-    
 
-    const handleSubmit = event => {
+    const handleSubmit =  event => {
         event.preventDefault();
 
         if (incomeValue === true && expenseValue === true) {
@@ -56,20 +54,12 @@ const BudgetController = ({ month, year, ...otherProps }) => {
         }
 
         if (incomeValue) {
-            console.log('if statement accessed')
             incomeDataEntry();
         }
 
         if (expenseValue) {
             expenseDataEntry();
         }
-
-        // setDocObj({
-        //     objType: '',
-        //     objAmount: '',
-        //     objDescription: '',
-        //     objId: 0
-        // });
     };
 
 
@@ -79,9 +69,8 @@ const BudgetController = ({ month, year, ...otherProps }) => {
         setDataEntry({ ...dataEntry, [name]: value }); 
     };
 
-    const incomeDataEntry = () => {
+    const incomeDataEntry = async () => {
         
-        console.log('function called')
         setIncomeId({incId: incId+1});
         console.log(incId);
         console.log(`${amount} ${description}`);
@@ -91,6 +80,19 @@ const BudgetController = ({ month, year, ...otherProps }) => {
             objDescription: description,
             objId: incId
         });
+
+        try {
+            await createDataEntryDocument(currentUser, year, month, docObj);
+        } catch (error) {
+            console.log('Error entering data: ', error.message);
+        } finally {
+            // setDocObj({
+            //     objType: '',
+            //     objAmount: '',
+            //     objDescription: '',
+            //     objId: 0
+            // });
+        }
     };
 
     const expenseDataEntry = () => {
