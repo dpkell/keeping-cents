@@ -14,6 +14,29 @@ opportunity to practice implementing hooks as a form of state management.
 
 ## Progress Reports
 
+### 09/01/2020
+
+##### Changes/Implementations
+
+1. Began to implement Firestore functionality
+
+2. User sign-in/sign-up authorization implemented and stored with Auth Context
+
+3. Date Context created and implemented
+
+4. Initial Data Entry implemented for Firestore in controller component.
+
+5. Finished Page Design and Layout
+
+##### Upcoming To-Do List
+
+1. Finish implementing Firestore functionality for budget controller component.
+
+2. Create Data Context to retrieve and detect changes of data entries
+
+3. Continue to implement feature functionality as the required data becomes available.
+
+
 ### 08/05/2020
 
 ##### Changes/Implementations
