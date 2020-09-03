@@ -66,7 +66,7 @@ const createYearDocument = async (userAuth, year, ...additionalData) => {
   const yearDocSnapShot = await yearDocInit.get();
   const yearDocId = yearDocSnapShot.id;
   const yearRef = firestore.doc(`users/${userAuth.id}/year/${yearDocId}`);
-  const yearSnapShot = await yearRef.get();
+  // const yearSnapShot = await yearRef.get();
 
   const createdAt = new Date();
 
@@ -83,30 +83,12 @@ const createYearDocument = async (userAuth, year, ...additionalData) => {
   return yearRef;
 };
 
-const createMonthDocument = async (userAuth, year, month) => {
-  if(!userAuth) return;
+const createMonthDocument = async (yearRefPath, month, year) => {
 
-  console.log('createMonthDocument function called')
-  const yearCollRef = firestore.collection(`users/${userAuth.id}/year/`);
-  const yearQuery = yearCollRef.where('year', '==', `${year}`);
-
-  let yearDocRef = firestore.doc(`users/${userAuth.id}/year/${year}`);
-  const yearDocSnap = await yearQuery.get();
-
-  if (!yearDocSnap.empty) {
-    console.log('createYear if statement accessed');
-    yearDocRef = await createYearDocument(userAuth, year);
-  } else {
-    yearDocSnap.forEach(doc => {
-      yearDocRef = doc.get();
-    })
-  };
-
-  // const newMonthDoc = firestore.doc(`${yearDocRef}/months/`);
-  const monthDocInit = firestore.doc(`${yearDocRef}/months/${month}/`);
+  const monthDocInit = firestore.doc(`${yearRefPath}/months/`);
   const monthDocSnapShot = await monthDocInit.get();
   const monthDocId = monthDocSnapShot.id;
-  const monthRef = firestore.doc(`${yearDocRef}/months/${monthDocId}`);
+  const monthRef = firestore.doc(`${yearRefPath}/months/${monthDocId}`);
 
   const createdAt = new Date();
 
@@ -174,6 +156,37 @@ export const createDataEntryDocument = async (userAuth, year, month, dataEntry) 
     return expenseRef;
   }
 
+}
+
+const queryYearSubcollection = async (userAuth, year) => {
+  const yearCollRef = firestore.collection(`users/${userAuth.id}/year/`);
+  const yearQuery = yearCollRef.where('year', '==', `${year}`);
+  const yearDocSnap = await yearQuery.get();
+  let yearDocRef;
+  if (!yearDocSnap.empty) {
+    yearDocSnap.forEach(async doc => {
+      yearDocRef = await doc.get();
+    })
+  } else {
+    yearDocRef = await createYearDocument(userAuth, year);
+  }
+  return yearDocRef;
+}
+
+const queryMonthSubcollection = async (userAuth, year, month) => {
+  const getYearRef = await queryYearSubcollection(userAuth, year);
+  const monthCollRef = firestore.collection(`${getYearRef.path}/months/`);
+  const monthQuery = monthCollRef.where('month', '==', `${month}`);
+  const monthDocSnap = await monthQuery.get();
+  let monthDocRef;
+  if (!monthDocSnap.empty) {
+    monthDocSnap.forEach(async doc => {
+      monthDocRef = await doc.get();
+    })
+  } else {
+    monthDocRef = await createMonthDocument(getYearRef.path, month, year);
+  }
+  return monthDocRef;
 }
 
 
