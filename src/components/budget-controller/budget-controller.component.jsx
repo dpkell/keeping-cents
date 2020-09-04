@@ -21,20 +21,20 @@ const BudgetController = ({ month, year, ...otherProps }) => {
     const [expenseId, setExpenseId] = usePersistedState('expId', {expId: 1});
     const [incomeId, setIncomeId] = usePersistedState('incId', {incId: 1});
     const [docObj, setDocObj] = useState({
-        objType: '',
-        objAmount: '',
-        objDescription: '',
-        objId: 0
+        type: '',
+        amount: '',
+        description: '',
+        id: 0
     });
 
     useEffect(() => {
         
         console.log(docObj);
-
+        firestoreDataEntry();
         return () => {
             _isMounted.current = false;
         }
-    }, [incomeValue, expenseValue, docObj]);
+    }, [docObj]);
 
     const { amount, description } = dataEntry;
     const { incId } = incomeId;
@@ -60,6 +60,8 @@ const BudgetController = ({ month, year, ...otherProps }) => {
         if (expenseValue) {
             expenseDataEntry();
         }
+
+        
     };
 
 
@@ -69,45 +71,37 @@ const BudgetController = ({ month, year, ...otherProps }) => {
         setDataEntry({ ...dataEntry, [name]: value }); 
     };
 
-    const incomeDataEntry = async () => {
-        
+    const incomeDataEntry = () => {
         setIncomeId({incId: incId+1});
         console.log(incId);
         console.log(`${amount} ${description}`);
         setDocObj({
-            objType: 'income',
-            objAmount: amount,
-            objDescription: description,
-            objId: incId
+            type: 'income',
+            amount: amount,
+            description: description,
+            id: incId
         });
-
-        try {
-            await createDataEntryDocument(currentUser, year, month, docObj);
-        } catch (error) {
-            console.log('Error entering data: ', error.message);
-        } finally {
-            // setDocObj({
-            //     objType: '',
-            //     objAmount: '',
-            //     objDescription: '',
-            //     objId: 0
-            // });
-        }
     };
 
     const expenseDataEntry = () => {
         console.log('function called')
         setExpenseId({expId: expId+1});
-        console.log(expId);
-        console.log(`${amount} ${description}`);
         setDocObj({
-            objType: 'expense',
-            objAmount: amount,
-            objDescription: description,
-            objId: expId
+            type: 'expense',
+            amount: amount,
+            description: description,
+            id: expId
         });
         
     };
+
+    const firestoreDataEntry = async () => {
+        try {
+            await createDataEntryDocument(currentUser, year, month, docObj);
+        } catch (error) {
+            console.log('Error entering data: ', error.message);
+        }
+    }
 
     return (
         <div className='budget-controller-container'>
