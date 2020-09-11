@@ -59,6 +59,8 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
+// Creates a document in the subcollection "years" based off of the year given.
+
 const createYearDocument = async (userAuth, year, ...additionalData) => {
   if(!userAuth) return;
   console.log('createYear function called')
@@ -81,6 +83,7 @@ const createYearDocument = async (userAuth, year, ...additionalData) => {
   return yearRef;
 };
 
+// Searches Years subcollection for a document with value of the year given. If none is found, createYearDocument is called.
 const queryYearSubcollection = async (userAuth, year) => {
   const yearCollRef = firestore.collection(`users/${userAuth.id}/years/`);
   const yearQuery = yearCollRef.where('year', '==', year);
@@ -95,6 +98,8 @@ const queryYearSubcollection = async (userAuth, year) => {
   }
   return yearDocRef;
 }
+
+// Creates a month document from the subcollection months within the relevant year document given the year and month.
 
 const createMonthDocument = async (yearRef, month, year) => {
   const monthDocInit = firestore.collection(`${yearRef.path}/months/`).doc();
@@ -117,6 +122,7 @@ const createMonthDocument = async (yearRef, month, year) => {
   return monthRef;
 }
 
+// Searches for a month document given the year and month, if no year is found, one is create, if no month is found one is created.
 const queryMonthSubcollection = async (userAuth, year, month) => {
   const getYearRef = await queryYearSubcollection(userAuth, year);
   const monthCollRef = firestore.collection(`${getYearRef.path}/months/`);
@@ -133,6 +139,7 @@ const queryMonthSubcollection = async (userAuth, year, month) => {
   return monthDocRef;
 }
 
+// Creates either an income document or expense document based upon type property within the appropriate month.
 export const createDataEntryDocument = async (userAuth, year, month, dataEntry) => {
   if(!userAuth) return;
   const { type, id } = dataEntry;
@@ -180,6 +187,7 @@ export const createDataEntryDocument = async (userAuth, year, month, dataEntry) 
 
 }
 
+// Gathers the income and expense documents to be used for the application.
 export const fetchDataEntries = async (currentUser, year, month, type) => {
   if (!currentUser) return;
   if (!currentUser.id) return;

@@ -27,6 +27,15 @@ export const EntryDataProvider = ({ children }) => {
 
 
     useEffect( () => {
+
+        /*
+          Not going to work correctly, need to find another way to implement
+          The query functions being asynchronous, and the onSnapshot being synchronous, it is not getting the relevant path
+          in time to execute and store the entries within the expenses and incomes states.
+          Not sure if return will mess up the whole reason for onSnapshot if placed within fetchDataEntries function,
+          since it will still need to return either an array or the documents themselves.
+
+         */
         const fetchData = async () => {
             const incomeEntriesRef = await fetchDataEntries(currentUser, year, month, 'income');
             if(!incomeEntriesRef) return;
