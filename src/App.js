@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { AuthProvider } from './AuthContext';
 import { DateProvider } from './DateContext';
+import { EntryDataProvider } from './EntryDataContext'
 import LoginRedirectRoute from './components/user-sign-in-redirect/user-sign-in-redirect.component';
 
 import Header from './components/header/header.component';
@@ -19,14 +20,16 @@ function App () {
   return (
     <AuthProvider>
       <DateProvider>
-        <Header />
-        <Switch>
-          <Route exact path='/' component={HomePage} />
-          <LoginRedirectRoute
-            exact
-            path='/signin'
-          />
-        </Switch>
+        <EntryDataProvider>
+          <Header />
+          <Switch>
+            <Route exact path='/' component={HomePage} />
+            <LoginRedirectRoute
+              exact
+              path='/signin'
+            />
+          </Switch>
+        </EntryDataProvider>
       </DateProvider>
     </AuthProvider>
   );

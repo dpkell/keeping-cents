@@ -66,7 +66,6 @@ const createYearDocument = async (userAuth, year, ...additionalData) => {
   const yearDocSnapShot = await yearDocInit.get();
   const yearDocId = yearDocSnapShot.id;
   const yearRef = firestore.doc(`users/${userAuth.id}/years/${yearDocId}`);
-  // const yearSnapShot = await yearRef.get();
 
   const createdAt = new Date();
   try {
@@ -84,7 +83,6 @@ const createYearDocument = async (userAuth, year, ...additionalData) => {
 
 const queryYearSubcollection = async (userAuth, year) => {
   const yearCollRef = firestore.collection(`users/${userAuth.id}/years/`);
-  console.log(year);
   const yearQuery = yearCollRef.where('year', '==', year);
   const yearDocSnap = await yearQuery.get();
   let yearDocRef;
@@ -121,7 +119,6 @@ const createMonthDocument = async (yearRef, month, year) => {
 
 const queryMonthSubcollection = async (userAuth, year, month) => {
   const getYearRef = await queryYearSubcollection(userAuth, year);
-  console.log(getYearRef);
   const monthCollRef = firestore.collection(`${getYearRef.path}/months/`);
   const monthQuery = monthCollRef.where('month', '==', `${month}`);
   const monthDocSnap = await monthQuery.get();
@@ -129,7 +126,6 @@ const queryMonthSubcollection = async (userAuth, year, month) => {
   if (!monthDocSnap.empty) {
     monthDocSnap.forEach(async doc => {
       monthDocRef = doc.ref;
-      console.log(monthDocRef);
     })
   } else {
     monthDocRef = await createMonthDocument(getYearRef, month, year);
@@ -150,7 +146,6 @@ export const createDataEntryDocument = async (userAuth, year, month, dataEntry) 
     const incomeDocSnapShot = await incomeDocInit.get();
     const incomeDocId = incomeDocSnapShot.id;
     const incomeRef = firestore.doc(`${monthDocRef.path}/incomes/${incomeDocId}`);
-    // const incomeSnapShot = await incomeRef.get();
 
     try {
       incomeRef.set({
@@ -170,7 +165,6 @@ export const createDataEntryDocument = async (userAuth, year, month, dataEntry) 
     const expenseDocSnapShot= await expenseDocInit.get();
     const expenseDocId = expenseDocSnapShot.id;
     const expenseRef = firestore.doc(`${monthDocRef.path}/expenses/${expenseDocId}`);
-    // const expenseSnapShot = await expenseRef.get();
 
     try {
       expenseRef.set({
@@ -186,7 +180,21 @@ export const createDataEntryDocument = async (userAuth, year, month, dataEntry) 
 
 }
 
+export const fetchDataEntries = async (currentUser, year, month, type) => {
+  if (!currentUser) return;
+  if (!currentUser.id) return;
+  const fetchMonthRef = await queryMonthSubcollection(currentUser, year, month);
 
+  if ( type === 'income') {
+    const incomesCollRef = firestore.collection(`${fetchMonthRef.path}/incomes/`);
+    return incomesCollRef;
+  }
+
+  if ( type === 'expense' ) {
+    const expensesCollRef = firestore.collection(`${fetchMonthRef.path}/expenses/`);
+    return expensesCollRef;
+  }
+}
 
 
 
